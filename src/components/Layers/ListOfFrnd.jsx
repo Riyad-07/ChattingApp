@@ -20,6 +20,7 @@ const ListOfFrnd = () => {
   const [friendReqList, setFriendReqList] = useState([]);
   const [cancelReqList, setCancelReqList] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [unFriends, setUnFriends] = useState([]);
 
   const user = useSelector((user) => user.login.logIn);
 
@@ -123,28 +124,31 @@ const ListOfFrnd = () => {
   
   //                                            Unfriend
 
+
+  useEffect(() => {
+    const starCountRef = ref(db, "friends/");
+    onValue(starCountRef, (snapshot) => {
+      let unfriendArr = [];
+      snapshot.forEach((item) => {
+        unfriendArr.push({ ...item.val(), id: item.key });
+      });
+      setUnFriends(unfriendArr);
+    });
+  }, [db]);
+
+  
   
 
   const handleUnfriend = (data) => {
-    const dbRef = database().ref('friends')
-    const friendId = data.id
-
-    dbRef.child(friendId).remove().then(()=> {
-      console.log('unfriend succesfully');
+    console.log(data);
+    unFriends.map(item=>{
+      if(data.id === item.sendarId || data.id === item.receiverId){
+        remove(ref(db, 'friends/' + item.id))
+      }
+      console.log(item);
       
-    }).catch((error)=> {
-      console.error(error)
     })
     
-    // const unfriendF = user.uid+data.id
-      // console.log(unfriendF);
-      // remove(ref(db, "friends/" - data.id+user.uid));
-
-      
-      // remove(ref(db, "friends/" + data.id));
-
-
-      // console.log(data);
   }
 
   
