@@ -16,6 +16,7 @@ import {
 } from "firebase/auth";
 import { BeatLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const SingUp = () => {
   const auth = getAuth();
@@ -106,14 +107,17 @@ const SingUp = () => {
 
   return (
     <>
+    <Helmet>
+      <title>Registration</title>
+    </Helmet>
       <ToastContainer />
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="w-3/4 bg-gray-400 flex justify-between items-center p-4 rounded-md">
+      <div className="flex items-center justify-center w-full h-screen">
+        <div className="flex items-center justify-between w-3/4 p-4 bg-gray-400 rounded-md">
           <div className="w-[49%]">
             <Lottie animationData={RegistrationAni} loop={true} />
           </div>
           <div className="w-[49%]  ">
-            <h2 className="text-center font-bold text-2xl text-white mb-5">
+            <h2 className="mb-5 text-2xl font-bold text-center text-white">
               Registration form
             </h2>
             <form
@@ -160,7 +164,7 @@ const SingUp = () => {
               >
                 <div
                   onClick={() => setShow(!show)}
-                  className="bg-red-700 cursor-pointer  "
+                  className="bg-red-700 cursor-pointer "
                 >
                   {show ? (
                     <FaEyeSlash className="absolute right-3 top-2/3 " />
@@ -176,13 +180,13 @@ const SingUp = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="text-white bg-green-400 font-bold w-full py-2 rounded-md"
+                className="w-full py-2 font-bold text-white bg-green-400 rounded-md"
               >
-                {loading ? <BeatLoader /> : "Sing Up"}
+                {loading ? <BeatLoader /> : "Sign Up"}
               </button>
             </form>
 
-            <p className="text-base mt-5">
+            <p className="mt-5 text-base">
               Already have an account ? <Link to="/sign-in">Sign In</Link>{" "}
             </p>
           </div>

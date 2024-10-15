@@ -91,9 +91,12 @@ const ListOfFrnd = () => {
     onValue(starCountRef, (snapshot) => {
       let frndArr = [];
       snapshot.forEach((item) => {
+        let unfriendArr = []
         frndArr.push(item.val().receiverId + item.val().sendarId);
+        unfriendArr.push({ ...item.val(), id: item.key });
       });
       setFriends(frndArr);
+      setUnFriends(unfriendArr);
     });
   }, [db]);
 
@@ -125,16 +128,16 @@ const ListOfFrnd = () => {
   //                                            Unfriend
 
 
-  useEffect(() => {
-    const starCountRef = ref(db, "friends/");
-    onValue(starCountRef, (snapshot) => {
-      let unfriendArr = [];
-      snapshot.forEach((item) => {
-        unfriendArr.push({ ...item.val(), id: item.key });
-      });
-      setUnFriends(unfriendArr);
-    });
-  }, [db]);
+  // useEffect(() => {
+  //   const starCountRef = ref(db, "friends/");
+  //   onValue(starCountRef, (snapshot) => {
+  //     let unfriendArr = [];
+  //     snapshot.forEach((item) => {
+  //       unfriendArr.push({ ...item.val(), id: item.key });
+  //     });
+  //     setUnFriends(unfriendArr);
+  //   });
+  // }, [db]);
 
   
   
