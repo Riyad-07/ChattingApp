@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import a1 from "../../../public/n1.jpg";
 import { useLocation, useNavigate } from "react-router";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,11 +32,7 @@ const FriendsList = () => {
   //                                    SmS
 
   const handleSingleChat = (data) => {
-    // console.log(data);
-
     if (user.uid === data.receiverId) {
-      // console.log('ak');
-
       dispatch(
         activeUser({
           status: "single",
@@ -56,8 +51,6 @@ const FriendsList = () => {
         })
       );
     } else {
-      // console.log('onno karor');
-
       dispatch(
         activeUser({
           status: "single",
@@ -93,9 +86,9 @@ const FriendsList = () => {
             className={`flex items-center justify-between mt-4 hover:bg-red-300 rounded-md cursor-pointer p-2 transition-all duration-500`}
           >
             <div className="flex items-center gap-x-2">
-              <div className="h-10 w-10 bg-gray-700 rounded-full flex items-center justify-center">
+              <div className="flex items-center justify-center w-10 h-10 bg-gray-700 rounded-full">
                 <img
-                  className="w-full h-full object-cover rounded-full"
+                  className="object-cover w-full h-full rounded-full"
                   src={
                     user.uid === item.receiverId
                       ? item.senderPfofile
@@ -104,7 +97,7 @@ const FriendsList = () => {
                   alt=""
                 />
               </div>
-              <h2 className=" text-base font-semibold">
+              <h2 className="text-base font-semibold ">
                 {user.uid == item.sendarId
                   ? item.receiverName
                   : item.sendarName}

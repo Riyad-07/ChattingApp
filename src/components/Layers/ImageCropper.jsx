@@ -6,14 +6,14 @@ import { BarLoader } from "react-spinners";
 const ImageCropper = ({ setImage, image, cropperRef, getCropData, loading }) => {
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center">
-      <div className="w-1/3 rounded-md bg-white p-4 relative ">
+    <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen">
+      <div className="relative w-1/3 p-4 bg-white rounded-md ">
         <h4 className="text-base font-bold text-center">
           Uplod Your Profile Picture
         </h4>
         <div
           onClick={() => setImage()}
-          className="absolute top-2 right-2 cursor-pointer"
+          className="absolute cursor-pointer top-2 right-2"
         >
           <CloseIcone />
         </div>
@@ -40,14 +40,14 @@ const ImageCropper = ({ setImage, image, cropperRef, getCropData, loading }) => 
             background={false}
             responsive={true}
             autoCropArea={1}
-            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+            checkOrientation={false}
             guides={true}
           />
         </div>
         <button
           disabled={loading}
           onClick={getCropData}
-          className="w-full font-bold text-white text-center bg-green-400 rounded-md mt-1 py-3"
+          className="w-full py-3 mt-1 font-bold text-center text-white bg-green-400 rounded-md"
         >
           {loading ? <BarLoader /> : "Upload"}
         </button>

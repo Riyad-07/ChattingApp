@@ -11,8 +11,6 @@ import {
   ref as Ref,
   uploadBytesResumable,
 } from "firebase/storage";
-// import { VoiceReocrder } from "../../SVG Icons/VoiceRecorder";
-// import { AudioRecorder } from "react-audio-voice-recorder";
 
 const Chatting = () => {
   const activeFriend = useSelector((single) => single.Active.active);
@@ -135,34 +133,10 @@ const Chatting = () => {
   //                                Voice sms send
 
   // const voiceReocrdSend = (e) => {
+  //   console.log('ok');
     
-    
-  //   console.log('listening');
-  //   const addAudioElement = (blob) => {
-  //     const url = URL.createObjectURL(blob);
-  //     const audio = document.createElement("audio");
-  //     audio.src = url;
-  //     audio.controls = true;
-  //     document.body.appendChild(audio);
-  //   };
-  //   <AudioRecorder
-  //     onRecordingComplete={addAudioElement}
-  //     audioTrackConstraints={{
-  //       noiseSuppression: true,
-  //       echoCancellation: true,
-  //     }}
-  //     downloadOnSavePress={true}
-  //     downloadFileExtension="webm"
-  //   />
-  // };
+  // }
 
-  // const addAudioElement = (blob) => {
-  //   const url = URL.createObjectURL(blob);
-  //   const audio = document.createElement("audio");
-  //   audio.src = url;
-  //   audio.controls = true;
-  //   document.body.appendChild(audio);
-  // };
 
   return (
     <div className="m-3 bg-white rounded-md ">

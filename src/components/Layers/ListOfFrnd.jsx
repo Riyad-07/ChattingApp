@@ -90,8 +90,8 @@ const ListOfFrnd = () => {
     const starCountRef = ref(db, "friends");
     onValue(starCountRef, (snapshot) => {
       let frndArr = [];
+      let unfriendArr = []
       snapshot.forEach((item) => {
-        let unfriendArr = []
         frndArr.push(item.val().receiverId + item.val().sendarId);
         unfriendArr.push({ ...item.val(), id: item.key });
       });
@@ -102,20 +102,9 @@ const ListOfFrnd = () => {
 
   //                                  cancel Friend Request
 
-  // useEffect(() => {
-  //   const starCountRef = ref(db, "friendRequest/");
-  //   onValue(starCountRef, (snapshot) => {
-  //     let cancelArr = [];
-  //     snapshot.forEach((item) => {
-  //       cancelArr.push({ ...item.val(), id: item.key });
-  //     });
-  //     setCancelReqList(cancelArr);
-  //   });
-  // }, [db]);
 
-  const handleCancelReq = (itemId) => {
-    // console.log(itemId);
-    
+
+  const handleCancelReq = (itemId) => {    
     const reqCancel = cancelReqList.find(
       (req) => req.receiverId == itemId && req.sendarId == user.uid
     );
@@ -127,31 +116,12 @@ const ListOfFrnd = () => {
   
   //                                            Unfriend
 
-
-  // useEffect(() => {
-  //   const starCountRef = ref(db, "friends/");
-  //   onValue(starCountRef, (snapshot) => {
-  //     let unfriendArr = [];
-  //     snapshot.forEach((item) => {
-  //       unfriendArr.push({ ...item.val(), id: item.key });
-  //     });
-  //     setUnFriends(unfriendArr);
-  //   });
-  // }, [db]);
-
-  
-  
-
   const handleUnfriend = (data) => {
-    console.log(data);
     unFriends.map(item=>{
       if(data.id === item.sendarId || data.id === item.receiverId){
         remove(ref(db, 'friends/' + item.id))
-      }
-      console.log(item);
-      
-    })
-    
+      }  
+    })    
   }
 
   
