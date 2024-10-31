@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import n1 from "../../public/n1.jpg";
-import { FriendIcon } from "../SVG Icons/Friend";
 import { MessageIcon } from "../SVG Icons/MessageIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";

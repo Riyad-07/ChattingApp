@@ -18,13 +18,6 @@ const ImageCropper = ({ setImage, image, cropperRef, getCropData, loading }) => 
           <CloseIcone />
         </div>
         <div className="w-20 h-20 overflow-hidden rounded-full img-preview">
-          {/* <div className="box" style={{ width: "50%", float: "right" }}>
-            <h1>Preview</h1>
-            <div
-              className="img-preview"
-              style={{ width: "100%", float: "left", height: "300px" }}
-            />
-          </div> */}
         </div>
         <div className="mt-5">
           <Cropper

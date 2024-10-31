@@ -13,13 +13,9 @@ import { Helmet } from "react-helmet";
 
 const LogIn = () => {
   const [loading, SetLoading] = useState(false);
-
   let [show, setShow] = useState(false);
-  let [show1, setShow1] = useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const auth = getAuth();
 
   let initialValues = {
@@ -111,7 +107,7 @@ const LogIn = () => {
 
             <Input
               className="relative mb-8"
-              type={show1 ? "text" : "password"}
+              type={show ? "text" : "password"}
               placeholder="Enter Your Password"
               value={formik.values.password}
               id="password"
@@ -120,10 +116,10 @@ const LogIn = () => {
               onChange={formik.handleChange}
             >
               <div
-                onClick={() => setShow1(!show1)}
+                onClick={() => setShow(!show)}
                 className="absolute cursor-pointer right-3 -translate-y-2/5 top-2/3"
               >
-                {show1 ? (
+                {show ? (
                   <FaEyeSlash className="" />
                 ) : (
                   <FaEye className="" />

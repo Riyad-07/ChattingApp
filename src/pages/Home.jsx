@@ -1,6 +1,4 @@
 import React from "react";
-import LoginUserRoute from "../PrivateRoute/LoginUser";
-import Navbar from "../components/Navbar";
 import UserList from "../components/UserList";
 import FriendReq from "../components/FriendReq";
 import Friends from "../components/Friends";

@@ -5,7 +5,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { SignUpV } from "../Validation/SignValidation";
 import { toast, ToastContainer } from "react-toastify";
 import { getDatabase, ref, set } from "firebase/database";
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -18,11 +17,11 @@ import { Helmet } from "react-helmet";
 
 const SingUp = () => {
   const auth = getAuth();
-  const [loading, SetLoading] = useState(false);
   const db = getDatabase();
+  const navigate = useNavigate()
+  const [loading, SetLoading] = useState(false);
   let [show, setShow] = useState(false);
   let [show1, setShow1] = useState(false);
-  const navigate = useNavigate()
 
   let initialValues = {
     name1: "",
@@ -111,7 +110,6 @@ const SingUp = () => {
             });
             SetLoading(false);
           }
-          // console.log(error.message);
         });
   };
 

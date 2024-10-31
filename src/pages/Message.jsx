@@ -13,7 +13,7 @@ const Message = () => {
         <div className="w-1/2 overflow-y-auto h-screen bg-[#F9F9F9]">
           <Friends />
         </div>
-        <div className="w-full">
+        <div className="w-full h-screen overflow-y-auto ">
           <Chatting />
         </div>
       </div>

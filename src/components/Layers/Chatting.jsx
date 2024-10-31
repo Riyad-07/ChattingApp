@@ -26,7 +26,6 @@ const Chatting = () => {
   const storage = getStorage();
 
   const [emoji, setEmoji] = useState(false);
-  const [audioSms, setAudioSms] = useState(false);
 
   const handleSend = () => {
     if (activeFriend?.status === "single") {
@@ -68,7 +67,6 @@ const Chatting = () => {
   //                send Emoji
 
   const handleEmojiSend = ({ emoji }) => {
-    // console.log(emoji);
     setSms(sms + emoji);
   };
 
@@ -91,7 +89,7 @@ const Chatting = () => {
         console.log("Upload is " + progress + "% done");
       },
       (error) => {
-        // console.log(error);
+        console.log(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -130,130 +128,101 @@ const Chatting = () => {
     }
   };
 
-  //                                Voice sms send
-
-  // const voiceReocrdSend = (e) => {
-  //   console.log('ok');
-    
-  // }
-
-
   return (
-    <div className="m-3 bg-white rounded-md ">
-      <div>
-        <div className="flex items-center gap-x-2 mb-5 bg-[#F9F9F9] py-3 px-10">
-          <div className="flex items-center justify-center w-[82px] h-[82px] bg-gray-700 rounded-full">
-            <img
-              className="object-cover w-full h-full rounded-full"
-              src={activeFriend.profile || a1}
-              alt=""
-            />
-          </div>
-          <h2 className="text-xl text-black ">
-            {/* {activeFriend.name || "please select your friend for chatting"} */}
-            {activeFriend?.name || "please select your friend for chatting"}
-          </h2>
-        </div>
-
-        <div className="w-full overflow-y-auto h-[360px]">
-          {activeFriend?.status === "single"
-            ? allSms.map((item, i) => (
-                <div key={i} ref={scrollRef}>
-                  {item.sendarId === user.uid ? (
-                    <div className="flex flex-col items-end w-1/2 ml-auto ">
-                      {item.image ? (
-                        <div className="flex flex-col items-end mb-2">
-                          <img src={item.image} />
-                          <span className="text-zinc-500">{item.date}</span>
-                        </div>
-                      ) : (
-                        <>
-                          <p className="inline-block p-3 mb-2 text-white bg-blue-600 rounded-t-md rounded-l-md ">
-                            {item.message}
-                          </p>
-                          <span className="text-zinc-500">{item.date}</span>
-                        </>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-start w-1/2 mr-auto ">
-                      {item.image ? (
-                        <img src={item.image} />
-                      ) : (
-                        <>
-                          <p className="inline-block p-3 mb-2 text-white bg-gray-400 rounded-t-md rounded-r-md">
-                            {item.message}
-                          </p>
-                          <span className="text-zinc-500">{item.date}</span>
-                        </>
-                      )}
-                      {/* <p className="inline-block p-3 mb-2 bg-gray-400 rounded-t-md rounded-r-md ">
-                      {item.message}
-                      </p> */}
-                    </div>
-                  )}
-                </div>
-              ))
-            : ""}
-        </div>
-
-        <div className="mx-auto w-[532px] bg-white flex items-center justify-between rounded-md px-3">
-          <div className="flex items-center gap-x-3">
-            <div className="relative cursor-pointer">
-              {emoji && (
-                <div className="absolute -left-5 bottom-10">
-                  <EmojiPicker onEmojiClick={handleEmojiSend} />
-                </div>
-              )}
-              <div onClick={() => setEmoji(!emoji)}>
-                <SmileIcon />
-              </div>
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => choseFile.current.click()}
-            >
-              <GalleryIcon />
-            </div>
-            <input
-              onChange={handleImageSend}
-              hidden
-              ref={choseFile}
-              type="file"
-            />
-
-            {/* <div
-              className="text-gray-400 cursor-pointer"
-              onClick={voiceReocrdSend}
-            >
-              <AudioRecorder
-                onRecordingComplete={addAudioElement}
-                audioTrackConstraints={{
-                  noiseSuppression: true,
-                  echoCancellation: true,
-                }}
-                downloadOnSavePress={true}
-                downloadFileExtension="webm"
-              />
-            </div> */}
-          </div>
-
-          <input
-            onChange={(e) => setSms(e.target.value)}
-            className="w-full px-5 py-2 outline-none "
-            type="text"
-            placeholder="send your message"
-            value={sms}
-            onKeyUp={handleSendButton}
+    <div className="flex flex-col justify-between h-[95%] m-3 bg-white rounded-md">
+      <div className="flex items-center gap-x-2 mb-5 bg-[#F9F9F9] py-3 px-10">
+        <div className="flex items-center justify-center w-[81px] h-[81px] bg-gray-700 rounded-full">
+          <img
+            className="object-cover w-full h-full rounded-full"
+            src={activeFriend.profile || a1}
+            alt=""
           />
-
-          <button
-            onClick={handleSend}
-            className="text-center  bg-[#4A81D3] text-white text-base w-[98px] py-2 rounded-md"
-          >
-            Send
-          </button>
         </div>
+        <h2 className="text-xl text-black ">
+          {activeFriend?.name || "please select your friend for chatting"}
+        </h2>
+      </div>
+
+      <div className="w-full h-full overflow-y-auto">
+        {activeFriend?.status === "single"
+          ? allSms.map((item, i) => (
+              <div key={i} ref={scrollRef}>
+                {item.sendarId === user.uid ? (
+                  <div className="flex flex-col items-end w-1/2 ml-auto ">
+                    {item.image ? (
+                      <div className="flex flex-col items-end mb-2">
+                        <img src={item.image} />
+                        <span className="text-zinc-500">{item.date}</span>
+                      </div>
+                    ) : (
+                      <>
+                        <p className="inline-block p-3 mb-2 text-white bg-blue-600 rounded-t-md rounded-l-md ">
+                          {item.message}
+                        </p>
+                        <span className="text-zinc-500">{item.date}</span>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-start w-1/2 mr-auto ">
+                    {item.image ? (
+                      <img src={item.image} />
+                    ) : (
+                      <>
+                        <p className="inline-block p-3 mb-2 text-white bg-gray-400 rounded-t-md rounded-r-md">
+                          {item.message}
+                        </p>
+                        <span className="text-zinc-500">{item.date}</span>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          : ""}
+      </div>
+
+      <div className="flex items-center justify-between w-auto px-3 mx-auto bg-white rounded-md">
+        <div className="flex items-center gap-x-3">
+          <div className="relative cursor-pointer">
+            {emoji && (
+              <div className="absolute -left-5 bottom-10">
+                <EmojiPicker onEmojiClick={handleEmojiSend} />
+              </div>
+            )}
+            <div onClick={() => setEmoji(!emoji)}>
+              <SmileIcon />
+            </div>
+          </div>
+          <div
+            className="cursor-pointer"
+            onClick={() => choseFile.current.click()}
+          >
+            <GalleryIcon />
+          </div>
+          <input
+            onChange={handleImageSend}
+            hidden
+            ref={choseFile}
+            type="file"
+          />
+        </div>
+
+        <input
+          onChange={(e) => setSms(e.target.value)}
+          className="w-full px-5 py-2 outline-none "
+          type="text"
+          placeholder="send your message"
+          value={sms}
+          onKeyUp={handleSendButton}
+        />
+
+        <button
+          onClick={handleSend}
+          className="text-center  bg-[#4A81D3] text-white text-base w-[98px] py-2 rounded-md"
+        >
+          Send
+        </button>
       </div>
     </div>
   );
