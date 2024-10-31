@@ -9,11 +9,11 @@ const Message = () => {
       <Helmet>
         <title>Message</title>
       </Helmet>
-      <div className="grid grid-cols-[2fr,6fr] px-3 gap-x-5">
-        <div className="w-full overflow-y-auto h-[600px] bg-[#FBFBFB]">
+      <div className="flex w-full">
+        <div className="w-1/2 overflow-y-auto h-screen bg-[#F9F9F9]">
           <Friends />
         </div>
-        <div className="">
+        <div className="w-full">
           <Chatting />
         </div>
       </div>

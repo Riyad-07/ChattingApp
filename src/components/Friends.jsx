@@ -3,8 +3,8 @@ import FriendsList from './Layers/FriendsList'
 
 const Friends = () => {
   return (
-    <div>
-        <h1 className="font-medium text-base mb-5">Friends</h1>
+    <div className='overflow-y-auto shadow-md'>
+        <h1 className="text-3xl font-semibold text-[#494949] mb-5">My Friends</h1>
         <FriendsList/>
     </div>
   )

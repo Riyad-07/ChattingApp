@@ -3,9 +3,7 @@ import Input from "../components/Input";
 import { useFormik } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { SignUpV } from "../Validation/SignValidation";
-import Lottie from "lottie-react";
-import RegistrationAni from "../Animation/RegistrationAni.json";
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { getDatabase, ref, set } from "firebase/database";
 
 import {
@@ -15,7 +13,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { BeatLoader } from "react-spinners";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 const SingUp = () => {
@@ -23,11 +21,14 @@ const SingUp = () => {
   const [loading, SetLoading] = useState(false);
   const db = getDatabase();
   let [show, setShow] = useState(false);
+  let [show1, setShow1] = useState(false);
+  const navigate = useNavigate()
 
   let initialValues = {
     name1: "",
     email: "",
     password: "",
+    rePassword: "",
   };
 
   const formik = useFormik({
@@ -56,7 +57,7 @@ const SingUp = () => {
               sendEmailVerification(auth.currentUser)
                 .then(() => {
                   toast.success("Verification Code Send Succesfully", {
-                    position: "top-right",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: true,
                     closeOnClick: true,
@@ -66,6 +67,13 @@ const SingUp = () => {
                     theme: "light",
                   });
                   SetLoading(false);
+                  
+                  let setTime = setTimeout(() => {
+                    navigate('/sign-in')
+                  }, 2000);
+                  let stop = clearTimeout(()=>{
+                    setTime(stop)
+                  })
                 })
                 .then(() => {
                   set(ref(db, "users/" + user.uid), {
@@ -75,7 +83,7 @@ const SingUp = () => {
                 })
                 .catch(() => {
                   toast.error(error.message, {
-                    position: "top-right",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: true,
                     closeOnClick: true,
@@ -88,9 +96,11 @@ const SingUp = () => {
             });
         })
         .catch((error) => {
+          console.log('not ok');
+          
           if (error.message.includes("auth/email-already-in-use")) {
             toast.error(" Email Already in Register", {
-              position: "top-right",
+              position: "top-center",
               autoClose: 1000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -110,23 +120,19 @@ const SingUp = () => {
     <Helmet>
       <title>Registration</title>
     </Helmet>
-      <ToastContainer />
-      <div className="flex items-center justify-center w-full h-screen">
-        <div className="flex items-center justify-between w-3/4 p-4 bg-gray-400 rounded-md">
-          <div className="w-[49%]">
-            <Lottie animationData={RegistrationAni} loop={true} />
-          </div>
-          <div className="w-[49%]  ">
-            <h2 className="mb-5 text-2xl font-bold text-center text-white">
-              Registration form
-            </h2>
+    <ToastContainer/>
+      <div className="flex flex-col items-center justify-center w-full h-screen">
+          <h1 className="font-joti text-[80px]">TalkNest</h1>
+        <div className="">
+          <div className="py-[89px] px-[43px] mt-[22px]">
             <form
-              className="flex flex-col gap-y-7"
+              className=""
               onSubmit={formik.handleSubmit}
             >
               <Input
+              className='mb-7'
                 type="text"
-                placeholder="Enter Your Name"
+                placeholder=""
                 value={formik.values.name1}
                 name="Fname"
                 id="name1"
@@ -139,11 +145,12 @@ const SingUp = () => {
               </Input>
 
               <Input
+              className='mb-7'
                 type="email"
-                placeholder="Enter Your Email"
+                placeholder=""
                 value={formik.values.email}
                 id="email"
-                InputTitle="Email"
+                InputTitle="Enter Email"
                 name="email"
                 onChange={formik.handleChange}
               >
@@ -153,12 +160,12 @@ const SingUp = () => {
               </Input>
 
               <Input
-                className="relative"
+                className="relative mb-7"
                 type={show ? "text" : "password"}
-                placeholder="Enter Your Password"
+                placeholder=""
                 value={formik.values.password}
                 id="password"
-                InputTitle="Password"
+                InputTitle="Enter Password"
                 name="password"
                 onChange={formik.handleChange}
               >
@@ -177,17 +184,42 @@ const SingUp = () => {
                 <p className="text-red-600">{formik.errors.password}</p>
               )}
 
+              <Input
+                className="relative mb-7"
+                type={show1 ? "text" : "password"}
+                placeholder=""
+                value={formik.values.rePassword}
+                id="rePassword"
+                InputTitle="Enter Confirm password"
+                name="rePassword"
+                onChange={formik.handleChange}
+              >
+                <div
+                  onClick={() => setShow1(!show1)}
+                  className="bg-red-700 cursor-pointer "
+                >
+                  {show1 ? (
+                    <FaEyeSlash className="absolute right-3 top-2/3 " />
+                  ) : (
+                    <FaEye className="absolute right-3 top-2/3 " />
+                  )}
+                </div>
+              </Input>
+              {formik.errors.rePassword && formik.touched.rePassword && (
+                <p className="text-red-600">{formik.errors.rePassword}</p>
+              )}
+
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2 font-bold text-white bg-green-400 rounded-md"
+                className="w-full py-2 text-lg font-medium text-white bg-[#313131] rounded-[10px]"
               >
-                {loading ? <BeatLoader /> : "Sign Up"}
+                {loading ? <BeatLoader color="white" /> : "Sign Up"}
               </button>
             </form>
 
-            <p className="mt-5 text-base">
-              Already have an account ? <Link to="/sign-in">Sign In</Link>{" "}
+            <p className="text-base mt-7">
+              Already have an account ? <Link className="text-[#236DB0]" to="/sign-in">Sign In</Link>{" "}
             </p>
           </div>
         </div>

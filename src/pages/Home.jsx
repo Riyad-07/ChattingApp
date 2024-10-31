@@ -13,18 +13,16 @@ const Home = () => {
         <title>Home Page</title>
       </Helmet>
 
-      <div className="grid grid-cols-[2fr,6fr] px-3 gap-x-5">
-        <div className="w-full overflow-y-auto h-[600px] bg-[#FBFBFB]">
+      <div className="flex w-full gap-x-5">
+        <div className="w-full overflow-y-auto h-screen bg-[#FBFBFB] border">
           <UserList />
         </div>
-        <div className="grid grid-cols-2 gap-x-5">
-          <div className="p-5 overflow-y-auto h-[600px]">
+          <div className="w-full h-screen p-5 overflow-y-auto border">
             <FriendReq />
           </div>
-          <div className="p-5 overflow-y-auto h-[600px]">
+          <div className="w-full h-screen p-5 overflow-y-auto border">
             <Friends />
           </div>
-        </div>
       </div>
     </>
   );

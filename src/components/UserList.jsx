@@ -6,8 +6,8 @@ const UserList = () => {
   
 
   return (
-    <div className="pt-4">
-      <h1 className="font-medium text-base mb-5">All Users</h1>
+    <div className="h-screen pt-4 overflow-y-auto shadow-md">
+      <h1 className="mb-5 text-3xl font-semibold text-[#494949]">All Users</h1>
       <ListOfFrnd />
     </div>
   );

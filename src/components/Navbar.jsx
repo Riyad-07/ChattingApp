@@ -9,9 +9,10 @@ import { logOutUsers } from "../Featchers/slice/userSlice";
 import { CameraIcon } from "../SVG Icons/CameraIcon";
 import { createPortal } from "react-dom";
 import Modal from "./Layers/Modal";
+import { LogOUtIcon } from "../SVG Icons/LogOutIcon";
+import { HomeIcon } from "../SVG Icons/HomeIcon";
 
 const Navbar = () => {
-  
   const user = useSelector((user) => user.login.logIn);
   const auth = getAuth();
   const navigate = useNavigate();
@@ -32,58 +33,55 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-around bg-[#232323] py-2">
-      <div className="flex gap-x-3 items-center">
-        <div className="h-10 w-10 rounded-full bg-red-300 flex justify-center items-center relative">
+    <nav className="flex flex-col items-center justify-between bg-[#5E3493] py-2 px-7 w-[166px]">
+      <div className="flex flex-col items-center gap-y-4">
+        <div className="relative flex  items-center justify-center h-[109px] bg-red-300 rounded-full w-[109px]">
           <img
-            className="h-full w-full object-cover rounded-full"
+            className="object-cover w-full h-full rounded-full"
             src={user.photoURL || n1}
             alt="logo.jpg"
           />
           <div
             onClick={() => setShow(true)}
-            className="absolute right-0 bottom-0 rounded-full flex justify-center items-center h-4 w-4 bg-white cursor-pointer"
+            className="absolute flex items-center justify-center w-6 h-6 text-white rounded-full cursor-pointer "
           >
             <CameraIcon />
           </div>
         </div>
-        <h2 className="font-semibold text-white text-xl">{user.displayName}</h2>
+        <h2 className="text-xl font-semibold text-white">{user.displayName}</h2>
       </div>
 
-      <div className="flex items-center gap-x-3">
+      <div className="flex flex-col items-center gap-y-[70px]">
         <Link
           to="/"
-          className={` ${
-            location.pathname === "/"
-              ? "bg-[#6CD0FB] text-white"
-              : "bg-white text-[#292D32]"
-          } h-10 w-10 rounded-full  flex items-center justify-center`}
+          className={`relative text-white`}
         >
-          <FriendIcon />
+          <HomeIcon />
+          {
+          location.pathname==='/'? (<div className="absolute top-0 w-2 h-full bg-white -right-14"></div>):(<div className=""></div>)
+        }
         </Link>
+        
         <Link
           to="/message"
-          className={` ${
-            location.pathname === "/message"
-              ? "bg-[#6CD0FB] text-white"
-              : "bg-white text-[#292D32]"
-          } h-10 w-10 rounded-full  flex items-center justify-center`}
+          className={`relative text-white`}
         >
           <MessageIcon />
+          {
+          location.pathname==='/message'? (<div className="absolute top-0 w-2 h-full bg-white -right-14"></div>):(<div className=""></div>)
+        }
         </Link>
       </div>
 
       <button
         onClick={handleLogOut}
-        className="bg-[#6CD0FB]  text-white text-xl py-2 w-[100px] text-center rounded-md"
+        className="flex items-center gap-2 text-xl font-semibold text-white"
       >
+        <LogOUtIcon />
         Log Out
       </button>
 
-      { show && createPortal(
-        <Modal setShow={setShow} />
-        , document.body
-      )}
+      {show && createPortal(<Modal setShow={setShow} />, document.body)}
     </nav>
   );
 };

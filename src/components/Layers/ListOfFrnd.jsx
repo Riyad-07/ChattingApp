@@ -131,7 +131,7 @@ const ListOfFrnd = () => {
       {users.map((item) => (
         <div className="flex items-center justify-between p-2 mt-4 transition-all duration-500 rounded-md cursor-pointer hover:bg-red-300">
           <div className="flex items-center gap-x-2">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full">
+            <div className="flex items-center justify-center w-[82px] h-[82px] rounded-full">
               <img
                 className="object-cover w-full h-full rounded-full"
                 src={item.photoURL || a1}

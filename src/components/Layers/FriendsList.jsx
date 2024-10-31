@@ -86,7 +86,7 @@ const FriendsList = () => {
             className={`flex items-center justify-between mt-4 hover:bg-red-300 rounded-md cursor-pointer p-2 transition-all duration-500`}
           >
             <div className="flex items-center gap-x-2">
-              <div className="flex items-center justify-center w-10 h-10 bg-gray-700 rounded-full">
+              <div className="flex items-center justify-center w-[64px] h-[64px] bg-gray-700 rounded-full">
                 <img
                   className="object-cover w-full h-full rounded-full"
                   src={

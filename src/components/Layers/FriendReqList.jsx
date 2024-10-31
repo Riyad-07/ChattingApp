@@ -51,13 +51,13 @@ const FriendReqList = () => {
     <>
       {friendReqList?.map((item) => (
         <div
-          className="flex justify-between items-center mt-4 hover:bg-red-300 rounded-md cursor-pointer p-2 transition-all duration-500"
+          className="flex items-center justify-between p-2 mt-4 transition-all duration-500 rounded-md cursor-pointer hover:bg-red-300"
           key={item.key}
         >
           <div className="flex items-center gap-x-2">
-            <div className="h-10 w-10 bg-gray-700 rounded-full flex items-center justify-center">
+            <div className="h-[64px] w-[64px] bg-gray-700 rounded-full flex items-center justify-center">
               <img
-                className="w-full h-full object-cover rounded-full"
+                className="object-cover w-full h-full rounded-full"
                 src={item.senderPfofile || a1}
                 alt=""
               />

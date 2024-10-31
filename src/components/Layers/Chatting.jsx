@@ -141,21 +141,21 @@ const Chatting = () => {
   return (
     <div className="m-3 bg-white rounded-md ">
       <div>
-        <div className="flex items-center gap-x-2 mb-5 bg-[#232323] py-3 rounded-t-md px-10">
-          <div className="flex items-center justify-center w-10 h-10 bg-gray-700 rounded-full">
+        <div className="flex items-center gap-x-2 mb-5 bg-[#F9F9F9] py-3 px-10">
+          <div className="flex items-center justify-center w-[82px] h-[82px] bg-gray-700 rounded-full">
             <img
               className="object-cover w-full h-full rounded-full"
               src={activeFriend.profile || a1}
               alt=""
             />
           </div>
-          <h2 className="text-xl text-white ">
+          <h2 className="text-xl text-black ">
             {/* {activeFriend.name || "please select your friend for chatting"} */}
             {activeFriend?.name || "please select your friend for chatting"}
           </h2>
         </div>
 
-        <div className="w-full h-[470px] bg-white  overflow-y-auto">
+        <div className="w-full overflow-y-auto h-[360px]">
           {activeFriend?.status === "single"
             ? allSms.map((item, i) => (
                 <div key={i} ref={scrollRef}>

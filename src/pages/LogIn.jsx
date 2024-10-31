@@ -1,25 +1,24 @@
-import Lottie from "lottie-react";
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast, ToastContainer } from "react-toastify";
 import Input from "../components/Input";
 import { useFormik } from "formik";
-import LoginAni from "../Animation/LoginAni.json";
 import { BeatLoader } from "react-spinners";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { SignInV } from "../Validation/SignValidation";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {  logInUsers } from "../Featchers/slice/userSlice";
+import { logInUsers } from "../Featchers/slice/userSlice";
 import { Helmet } from "react-helmet";
 
 const LogIn = () => {
   const [loading, SetLoading] = useState(false);
 
   let [show, setShow] = useState(false);
+  let [show1, setShow1] = useState(false);
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const auth = getAuth();
 
@@ -29,22 +28,21 @@ const LogIn = () => {
   };
 
   const signInUser = () => {
-    SetLoading(true);
+    SetLoading(true);    
 
     signInWithEmailAndPassword(
       auth,
       formik.values.email,
       formik.values.password
-    )
-      .then(({ user }) => {
+    ).then(({ user }) => {
         if (user.emailVerified === true) {
           dispatch(logInUsers(user));
-          localStorage.setItem('user', JSON.stringify(user)); 
+          localStorage.setItem("user", JSON.stringify(user));
           console.log("true");
-          navigate('/')
+          navigate("/");
         } else {
           toast.error("verify your email", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 1000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -60,7 +58,7 @@ const LogIn = () => {
       .catch((error) => {
         if (error.message.includes("auth/invalid-credential")) {
           toast.error(" Your Password or Email is Incorrect", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 1000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -88,72 +86,67 @@ const LogIn = () => {
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <ToastContainer />
-      <div className="flex items-center justify-center w-full h-screen">
-        <div className="flex items-center justify-between w-3/4 p-4 bg-gray-400 rounded-md">
-          <div className="w-[49%]">
-            <Lottie animationData={LoginAni} loop={true} />
-          </div>
-          <div className="w-[49%]  ">
-            <h2 className="mb-5 text-2xl font-bold text-center text-white">
-              Log In
-            </h2>
-            <form
-              className="flex flex-col gap-y-7"
-              onSubmit={formik.handleSubmit}
+      <ToastContainer/>
+      <div className="flex flex-col items-center justify-center w-full h-screen">
+          <h1 className="font-joti text-[80px]">TalkNest</h1>
+        <div className="py-[89px] px-[43px] mt-[22px]">
+          <form
+            className="w-[474px] "
+            onSubmit={formik.handleSubmit}
+          >
+            <Input
+            className='mb-8'
+              type="email"
+              placeholder="Enter Your Email"
+              value={formik.values.email}
+              id="email"
+              InputTitle="Enter Email"
+              name="email"
+              onChange={formik.handleChange}
             >
-              <Input
-                type="email"
-                placeholder="Enter Your Email"
-                value={formik.values.email}
-                id="email"
-                InputTitle="Email"
-                name="email"
-                onChange={formik.handleChange}
-              >
-                {formik.errors.email && formik.touched.email && (
-                  <p className="text-red-600">{formik.errors.email}</p>
-                )}
-              </Input>
-
-              <Input
-                className="relative"
-                type={show ? "text" : "password"}
-                placeholder="Enter Your Password"
-                value={formik.values.password}
-                id="password"
-                InputTitle="Password"
-                name="password"
-                onChange={formik.handleChange}
-              >
-                <div
-                  onClick={() => setShow(!show)}
-                  className="bg-red-700 cursor-pointer "
-                >
-                  {show ? (
-                    <FaEyeSlash className="absolute right-3 top-2/3 " />
-                  ) : (
-                    <FaEye className="absolute right-3 top-2/3 " />
-                  )}
-                </div>
-              </Input>
-              {formik.errors.password && formik.touched.password && (
-                <p className="text-red-600">{formik.errors.password}</p>
+              {formik.errors.email && formik.touched.email && (
+                <p className="text-red-600">{formik.errors.email}</p>
               )}
+            </Input>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-2 font-bold text-white bg-green-400 rounded-md"
+            <Input
+              className="relative mb-8"
+              type={show1 ? "text" : "password"}
+              placeholder="Enter Your Password"
+              value={formik.values.password}
+              id="password"
+              InputTitle="Enter Password"
+              name="password"
+              onChange={formik.handleChange}
+            >
+              <div
+                onClick={() => setShow1(!show1)}
+                className="absolute cursor-pointer right-3 -translate-y-2/5 top-2/3"
               >
-                {loading ? <BeatLoader /> : "Sign In"}
-              </button>
-            </form>
+                {show1 ? (
+                  <FaEyeSlash className="" />
+                ) : (
+                  <FaEye className="" />
+                )}
+              </div>
+            </Input>
+            {formik.errors.password && formik.touched.password && (
+              <p className="text-red-600">{formik.errors.password}</p>
+            )}
 
-            <p className="mt-5 text-base">
-              Don't Have an account ? <Link to="/registration">Sign Up</Link>{" "}
-            </p>
-          </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-2 font-medium text-white bg-[#484848] rounded-[10px] text-lg my-7"
+            >
+              {loading ? <BeatLoader color="white" /> : "Sign In"}
+            </button>
+            <p className="text-base text-black">
+            Don't Have an account ? <Link className="text-[#236DB0]" to="/registration">Sign Up</Link>{" "}
+          </p>
+          </form>
+
+          
         </div>
       </div>
     </div>
